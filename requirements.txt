@@ -1,0 +1,10 @@
+torch
+numpy
+scipy
+h5py
+mat73
+pytest
+# only needed when --encoder is not "none" (imported by PaPaGei's models/resnet.py)
+tqdm
+matplotlib
+scikit-learn

@@ -1,0 +1,28 @@
+M3 (first-round checkpoint) sampled with 25, 50 and 100 steps on the same 7,200 test segments, 19 draws.
+The 50-step row is the first-round evaluation cut to these segments and thinned to 19 draws.
+Each "A minus B" line is a difference on the same test segments with a 95% interval from a bootstrap
+over the 144 test patients (1,000 resamples). Units are mmHg; coverage is a fraction.
+The script reads the saved draws (*.npz), which are not in this repository.
+
+$ python scripts/steps_compare.py --data results/ids
+
+SBP: 7200 segments from 144 patients
+     50 steps, 19 draws: MAE 11.44  mean error -1.11  CRPS  7.97  coverage 0.859 (nominal 0.90)  width  44.8  mean draw SD 11.96  error SD 14.58
+     25 steps, 19 draws: MAE 11.37  mean error -1.45  CRPS  8.02  coverage 0.823 (nominal 0.90)  width  40.4  mean draw SD 10.77  error SD 14.47
+    100 steps, 19 draws: MAE 11.39  mean error -0.91  CRPS  7.90  coverage 0.877 (nominal 0.90)  width  47.2  mean draw SD 12.57  error SD 14.54
+   25 steps minus 50 steps: MAE -0.076 [-0.176, +0.016]   CRPS +0.051 [-0.019, +0.120]   coverage -0.036 [-0.044, -0.028]   draw SD ratio 0.901
+   100 steps minus 50 steps: MAE -0.056 [-0.156, +0.043]   CRPS -0.073 [-0.140, -0.006]   coverage +0.018 [+0.010, +0.025]   draw SD ratio 1.051
+
+DBP: 7200 segments from 144 patients
+     50 steps, 19 draws: MAE  6.35  mean error -0.25  CRPS  4.43  coverage 0.866 (nominal 0.90)  width  25.9  mean draw SD  6.88  error SD  8.22
+     25 steps, 19 draws: MAE  6.32  mean error -0.32  CRPS  4.47  coverage 0.836 (nominal 0.90)  width  23.2  mean draw SD  6.16  error SD  8.20
+    100 steps, 19 draws: MAE  6.34  mean error -0.23  CRPS  4.42  coverage 0.886 (nominal 0.90)  width  27.3  mean draw SD  7.24  error SD  8.24
+   25 steps minus 50 steps: MAE -0.038 [-0.087, +0.010]   CRPS +0.040 [-0.002, +0.079]   coverage -0.030 [-0.039, -0.022]   draw SD ratio 0.896
+   100 steps minus 50 steps: MAE -0.009 [-0.063, +0.042]   CRPS -0.008 [-0.046, +0.028]   coverage +0.020 [+0.012, +0.027]   draw SD ratio 1.053
+
+MAP: 7200 segments from 144 patients
+     50 steps, 19 draws: MAE  7.81  mean error -0.36  CRPS  5.45  coverage 0.856 (nominal 0.90)  width  30.9  mean draw SD  8.24  error SD 10.01
+     25 steps, 19 draws: MAE  7.76  mean error -0.51  CRPS  5.50  coverage 0.817 (nominal 0.90)  width  27.5  mean draw SD  7.31  error SD  9.95
+    100 steps, 19 draws: MAE  7.79  mean error -0.28  CRPS  5.42  coverage 0.881 (nominal 0.90)  width  32.8  mean draw SD  8.70  error SD 10.01
+   25 steps minus 50 steps: MAE -0.051 [-0.112, +0.010]   CRPS +0.049 [-0.002, +0.096]   coverage -0.038 [-0.047, -0.030]   draw SD ratio 0.888
+   100 steps minus 50 steps: MAE -0.020 [-0.087, +0.048]   CRPS -0.031 [-0.079, +0.014]   coverage +0.026 [+0.018, +0.033]   draw SD ratio 1.056

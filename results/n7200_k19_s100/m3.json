@@ -1,0 +1,132 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital",
+  "split": "test",
+  "train_split": "train",
+  "ckpt": "runs/m3/best.pt",
+  "baselines_only": false,
+  "cal": "fixed",
+  "ppg": "clean",
+  "n": 7200,
+  "k": 19,
+  "steps": 100,
+  "w_ppg": 1.0,
+  "w_cal": 1.0,
+  "bs": 512,
+  "workers": 8,
+  "seed": 0,
+  "no_ema": false,
+  "save_waves": 0,
+  "out": "results/n7200_k19_s100/m3.json"
+ },
+ "n": 7200,
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital",
+  "out": "runs/m3",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "gen",
+  "path": "cosine",
+  "use_cal": true,
+  "p_drop_ppg": 0.1,
+  "p_drop_cal": 0.5,
+  "encoder": "none",
+  "papagei_repo": null,
+  "papagei_weights": null,
+  "lora_rank": 8,
+  "enc_lr_mult": 1.0,
+  "base": 64,
+  "steps": 100000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "aug_corrupt": 0.0,
+  "val_every": 5000,
+  "val_n": 1024,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 0,
+  "resume": true
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 11.386617660522461,
+   "me": -0.9117326736450195,
+   "sd": 14.5420503616333,
+   "crps": 7.89857400803693,
+   "cov90": 0.8765277777777778,
+   "cov90_nominal": 0.9,
+   "width90": 47.21263885498047
+  },
+  "dbp": {
+   "mae": 6.344579219818115,
+   "me": -0.23437048494815826,
+   "sd": 8.241246223449707,
+   "crps": 4.424610218806573,
+   "cov90": 0.8856944444444445,
+   "cov90_nominal": 0.9,
+   "width90": 27.32396697998047
+  },
+  "map": {
+   "mae": 7.78712797164917,
+   "me": -0.28496411442756653,
+   "sd": 10.00732707977295,
+   "crps": 5.417799222120765,
+   "cov90": 0.8813888888888889,
+   "cov90_nominal": 0.9,
+   "width90": 32.76224136352539
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.8772694497036627
+  },
+  "tracking_map": {
+   "slope": 0.5856669148801816,
+   "corr": 0.7468138551503015,
+   "n": 7200,
+   "mean_abs_change": 11.119941711425781
+  }
+ },
+ "wave_mae": 8.699967384338379,
+ "flat_fraction": 0.0,
+ "by_change": [
+  {
+   "change_mmHg": "0-5",
+   "n": 2365,
+   "map_mae": 5.958479881286621,
+   "map_crps": 4.059550582464858,
+   "cov90": 0.9496828752642706,
+   "width90": 31.837404251098633,
+   "slope": 0.5350540936277756
+  },
+  {
+   "change_mmHg": "5-10",
+   "n": 1703,
+   "map_mae": 6.4648518562316895,
+   "map_crps": 4.408169778043649,
+   "cov90": 0.9242513211978861,
+   "width90": 32.080780029296875,
+   "slope": 0.5395672725839562
+  },
+  {
+   "change_mmHg": "10-20",
+   "n": 2004,
+   "map_mae": 8.155616760253906,
+   "map_crps": 5.647436915117335,
+   "cov90": 0.8527944111776448,
+   "width90": 33.027435302734375,
+   "slope": 0.5673006882332038
+  },
+  {
+   "change_mmHg": "20-inf",
+   "n": 1128,
+   "map_mae": 12.962779998779297,
+   "map_crps": 9.38186220020979,
+   "cov90": 0.724290780141844,
+   "width90": 35.25897979736328,
+   "slope": 0.5955849311498754
+  }
+ ]
+}

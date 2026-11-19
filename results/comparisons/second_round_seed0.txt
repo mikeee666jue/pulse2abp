@@ -1,0 +1,46 @@
+Second-round arms against M1 on the same 7,200 test segments, training seed 0.
+Each "A minus B" line is a difference on the same test segments with a 95% interval from a bootstrap
+over the 144 test patients (1,000 resamples). Units are mmHg; coverage is a fraction.
+The script reads the saved draws (*.npz), which are not in this repository.
+
+$ python scripts/steps_compare.py --data results/ids --files M1=results/n7200_k19_s50/m1_s15k.npz flow=results/n7200_k19_s50/m1_linear_s15k.npz \
+      frozen=results/n7200_k19_s50/m2_frozen_s15k.npz lora=results/n7200_k19_s50/m2_lora_s15k.npz full=results/n7200_k19_s50/m2_full_s15k.npz scratch=results/n7200_k19_s50/m2_scratch_s15k.npz
+
+SBP: 7200 segments from 144 patients
+           M1, 19 draws: MAE 12.79  mean error -1.61  CRPS  8.93  coverage 0.864 (nominal 0.90)  width  50.8  mean draw SD 13.59  error SD 16.23
+         flow, 19 draws: MAE 12.49  mean error -1.10  CRPS  8.71  coverage 0.871 (nominal 0.90)  width  50.7  mean draw SD 13.53  error SD 15.91
+       frozen, 19 draws: MAE 12.78  mean error -1.86  CRPS  8.92  coverage 0.862 (nominal 0.90)  width  50.4  mean draw SD 13.53  error SD 16.18
+         lora, 19 draws: MAE 12.50  mean error -1.30  CRPS  8.75  coverage 0.860 (nominal 0.90)  width  49.4  mean draw SD 13.21  error SD 15.94
+         full, 19 draws: MAE 12.73  mean error -1.79  CRPS  8.88  coverage 0.864 (nominal 0.90)  width  50.6  mean draw SD 13.58  error SD 16.14
+      scratch, 19 draws: MAE 12.83  mean error -1.46  CRPS  9.01  coverage 0.855 (nominal 0.90)  width  49.7  mean draw SD 13.27  error SD 16.36
+   flow minus M1: MAE -0.304 [-0.492, -0.135]   CRPS -0.220 [-0.356, -0.097]   coverage +0.007 [+0.001, +0.013]   draw SD ratio 0.995
+   frozen minus M1: MAE -0.013 [-0.125, +0.102]   CRPS -0.008 [-0.090, +0.074]   coverage -0.002 [-0.006, +0.003]   draw SD ratio 0.996
+   lora minus M1: MAE -0.293 [-0.453, -0.141]   CRPS -0.180 [-0.301, -0.067]   coverage -0.004 [-0.009, +0.002]   draw SD ratio 0.972
+   full minus M1: MAE -0.064 [-0.178, +0.059]   CRPS -0.048 [-0.127, +0.040]   coverage +0.000 [-0.004, +0.005]   draw SD ratio 0.999
+   scratch minus M1: MAE +0.042 [-0.171, +0.252]   CRPS +0.088 [-0.057, +0.241]   coverage -0.009 [-0.017, -0.002]   draw SD ratio 0.977
+
+DBP: 7200 segments from 144 patients
+           M1, 19 draws: MAE  8.14  mean error -0.45  CRPS  5.66  coverage 0.864 (nominal 0.90)  width  32.6  mean draw SD  8.73  error SD 10.28
+         flow, 19 draws: MAE  7.99  mean error -0.28  CRPS  5.58  coverage 0.868 (nominal 0.90)  width  32.6  mean draw SD  8.71  error SD 10.15
+       frozen, 19 draws: MAE  8.13  mean error -0.69  CRPS  5.66  coverage 0.866 (nominal 0.90)  width  32.5  mean draw SD  8.72  error SD 10.25
+         lora, 19 draws: MAE  7.97  mean error -0.37  CRPS  5.56  coverage 0.868 (nominal 0.90)  width  32.1  mean draw SD  8.60  error SD 10.10
+         full, 19 draws: MAE  8.14  mean error -0.73  CRPS  5.66  coverage 0.869 (nominal 0.90)  width  32.7  mean draw SD  8.75  error SD 10.26
+      scratch, 19 draws: MAE  8.25  mean error -1.00  CRPS  5.78  coverage 0.853 (nominal 0.90)  width  32.0  mean draw SD  8.57  error SD 10.40
+   flow minus M1: MAE -0.145 [-0.271, -0.024]   CRPS -0.087 [-0.184, +0.005]   coverage +0.003 [-0.003, +0.010]   draw SD ratio 0.998
+   frozen minus M1: MAE -0.003 [-0.070, +0.064]   CRPS -0.002 [-0.049, +0.045]   coverage +0.002 [-0.002, +0.006]   draw SD ratio 0.999
+   lora minus M1: MAE -0.168 [-0.274, -0.064]   CRPS -0.108 [-0.188, -0.030]   coverage +0.004 [-0.002, +0.009]   draw SD ratio 0.985
+   full minus M1: MAE +0.000 [-0.076, +0.076]   CRPS -0.002 [-0.058, +0.052]   coverage +0.005 [+0.001, +0.009]   draw SD ratio 1.003
+   scratch minus M1: MAE +0.118 [-0.022, +0.252]   CRPS +0.119 [+0.022, +0.215]   coverage -0.011 [-0.019, -0.004]   draw SD ratio 0.981
+
+MAP: 7200 segments from 144 patients
+           M1, 19 draws: MAE  9.30  mean error -0.57  CRPS  6.46  coverage 0.860 (nominal 0.90)  width  36.3  mean draw SD  9.71  error SD 11.73
+         flow, 19 draws: MAE  9.13  mean error -0.38  CRPS  6.35  coverage 0.863 (nominal 0.90)  width  36.3  mean draw SD  9.70  error SD 11.55
+       frozen, 19 draws: MAE  9.31  mean error -0.82  CRPS  6.48  coverage 0.858 (nominal 0.90)  width  36.1  mean draw SD  9.68  error SD 11.71
+         lora, 19 draws: MAE  9.11  mean error -0.50  CRPS  6.35  coverage 0.857 (nominal 0.90)  width  35.5  mean draw SD  9.52  error SD 11.52
+         full, 19 draws: MAE  9.30  mean error -0.81  CRPS  6.47  coverage 0.861 (nominal 0.90)  width  36.3  mean draw SD  9.73  error SD 11.72
+      scratch, 19 draws: MAE  9.46  mean error -0.94  CRPS  6.63  coverage 0.848 (nominal 0.90)  width  35.6  mean draw SD  9.51  error SD 11.91
+   flow minus M1: MAE -0.174 [-0.321, -0.035]   CRPS -0.113 [-0.225, -0.006]   coverage +0.003 [-0.003, +0.010]   draw SD ratio 1.000
+   frozen minus M1: MAE +0.011 [-0.072, +0.092]   CRPS +0.017 [-0.042, +0.076]   coverage -0.002 [-0.007, +0.003]   draw SD ratio 0.997
+   lora minus M1: MAE -0.194 [-0.314, -0.073]   CRPS -0.113 [-0.199, -0.027]   coverage -0.003 [-0.009, +0.003]   draw SD ratio 0.980
+   full minus M1: MAE +0.003 [-0.078, +0.089]   CRPS +0.011 [-0.047, +0.072]   coverage +0.001 [-0.004, +0.006]   draw SD ratio 1.003
+   scratch minus M1: MAE +0.156 [+0.005, +0.311]   CRPS +0.164 [+0.054, +0.274]   coverage -0.012 [-0.020, -0.003]   draw SD ratio 0.980

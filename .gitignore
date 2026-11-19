@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.DS_Store
+
+# Not kept in git: checkpoints, arrays (data and saved draws), raw data, job output, external code.
+*.pt
+*.npy
+*.npz
+*.mat
+logs/
+ext/

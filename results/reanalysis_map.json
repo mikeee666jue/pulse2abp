@@ -1,0 +1,133 @@
+{
+ "quantity": "map",
+ "segments": 20000,
+ "patients": 144,
+ "distribution": {
+  "b1": {
+   "mae": 9.043758930778504,
+   "crps_constant_bar": 6.463792543874397
+  },
+  "m1": {
+   "mae": 9.18613328397213,
+   "crps_constant_bar": 6.534957336732495,
+   "crps_own_draws": 6.447912283575133,
+   "coverage90": 0.8543,
+   "nominal": 0.9,
+   "mean_posterior_sd": 9.775848308337329,
+   "error_sd": 11.618851410410644,
+   "spearman_sd_vs_abs_error": 0.0952956848870607
+  },
+  "m3": {
+   "mae": 7.765440019147825,
+   "crps_constant_bar": 5.571527282104674,
+   "crps_own_draws": 5.479520830267933,
+   "coverage90": 0.8553,
+   "nominal": 0.9,
+   "mean_posterior_sd": 8.306122109196384,
+   "error_sd": 9.960752821516765,
+   "spearman_sd_vs_abs_error": 0.10466632076395505
+  }
+ },
+ "within_between": {
+  "b1": {
+   "pulse_following": 0.47194600174657436,
+   "calibration_following": -0.0007350926726594679,
+   "within_corr": 0.7163644817611416,
+   "within_r2": 0.5098674407981678,
+   "between_r2": 0.1729076264529099,
+   "patient_mean_error_sd": 8.667659597953064
+  },
+  "m1": {
+   "pulse_following": 0.3608565640996145,
+   "calibration_following": 0.0013246966654367957,
+   "within_corr": 0.7209478179031198,
+   "within_r2": 0.4711668318423101,
+   "between_r2": 0.17197757705650407,
+   "patient_mean_error_sd": 8.674600929798011
+  },
+  "m3": {
+   "pulse_following": 0.4266547395866858,
+   "calibration_following": 0.26662392500470816,
+   "within_corr": 0.6677370676918024,
+   "within_r2": 0.4445553363495578,
+   "between_r2": 0.5932035438047614,
+   "patient_mean_error_sd": 6.079962792017133
+  }
+ },
+ "references": {
+  "constant": {
+   "mae": 11.375436625829883,
+   "crps_constant_bar": 8.106192105373198
+  },
+  "calibration as is": {
+   "mae": 11.264846760749817,
+   "crps_constant_bar": 8.279892343894488
+  },
+  "calibration shrunk toward the mean": {
+   "mae": 9.967537622369033,
+   "crps_constant_bar": 7.159101815630812
+  },
+  "b1 (pulse only)": {
+   "mae": 9.043758930778504,
+   "crps_constant_bar": 6.463792543874397
+  },
+  "b1 + calibration, linear": {
+   "mae": 8.34452595522534,
+   "crps_constant_bar": 6.022654441266252
+  },
+  "m1 (as trained)": {
+   "mae": 9.18613328397213,
+   "crps_constant_bar": 6.534957336732495
+  },
+  "m3 (as trained)": {
+   "mae": 7.765440019147825,
+   "crps_constant_bar": 5.571527282104674
+  }
+ },
+ "linear_weights": {
+  "pulse_only": 0.7613555168011722,
+  "calibration": 0.31212178451412204
+ },
+ "bootstrap": {
+  "MAE m1 - b1": {
+   "value": 0.14237435319362568,
+   "lo": -0.12869102037609834,
+   "hi": 0.4191302215708281
+  },
+  "MAE m3 - b1": {
+   "value": -1.278318911630679,
+   "lo": -1.6985099491405395,
+   "hi": -0.835006570747663
+  },
+  "MAE m1 - (b1 + calibration, linear)": {
+   "value": 0.8416073287467896,
+   "lo": 0.4458455579253894,
+   "hi": 1.2215640499052582
+  },
+  "MAE m3 - (b1 + calibration, linear)": {
+   "value": -0.5790859360775151,
+   "lo": -0.8038645049945119,
+   "hi": -0.34082825037312625
+  },
+  "CRPS m1 own draws - (b1 + constant bar)": {
+   "value": -0.015880260299264037,
+   "lo": -0.20652105336345267,
+   "hi": 0.18079093880164354
+  },
+  "CRPS m3 own draws - (b1 + constant bar)": {
+   "value": -0.9842717136064643,
+   "lo": -1.274070668116849,
+   "hi": -0.685614898544611
+  },
+  "coverage90 m1": {
+   "value": 0.8543,
+   "lo": 0.8269297964734867,
+   "hi": 0.8807238479210519
+  },
+  "coverage90 m3": {
+   "value": 0.8553,
+   "lo": 0.835605366486479,
+   "hi": 0.8744446295721254
+  }
+ }
+}

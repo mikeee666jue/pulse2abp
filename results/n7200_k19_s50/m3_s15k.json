@@ -1,0 +1,132 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital",
+  "split": "test",
+  "train_split": "train",
+  "ckpt": "runs/m3_s15k/best.pt",
+  "baselines_only": false,
+  "cal": "fixed",
+  "ppg": "clean",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "w_ppg": 1.0,
+  "w_cal": 1.0,
+  "bs": 512,
+  "workers": 8,
+  "seed": 0,
+  "no_ema": false,
+  "save_waves": 0,
+  "out": "results/n7200_k19_s50/m3_s15k.json"
+ },
+ "n": 7200,
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital",
+  "out": "runs/m3_s15k",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "gen",
+  "path": "cosine",
+  "use_cal": true,
+  "p_drop_ppg": 0.1,
+  "p_drop_cal": 0.5,
+  "encoder": "none",
+  "papagei_repo": null,
+  "papagei_weights": null,
+  "lora_rank": 8,
+  "enc_lr_mult": 1.0,
+  "base": 64,
+  "steps": 15000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "aug_corrupt": 0.0,
+  "val_every": 1000,
+  "val_n": 2048,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 0,
+  "resume": true
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 11.528932571411133,
+   "me": -0.9344254732131958,
+   "sd": 14.706975936889648,
+   "crps": 8.017278166715785,
+   "cov90": 0.8693055555555556,
+   "cov90_nominal": 0.9,
+   "width90": 46.13631820678711
+  },
+  "dbp": {
+   "mae": 6.384185314178467,
+   "me": -0.2566279470920563,
+   "sd": 8.321552276611328,
+   "crps": 4.46862023503847,
+   "cov90": 0.8783333333333333,
+   "cov90_nominal": 0.9,
+   "width90": 26.66805648803711
+  },
+  "map": {
+   "mae": 7.868946552276611,
+   "me": -0.25127744674682617,
+   "sd": 10.13109302520752,
+   "crps": 5.4940974224473536,
+   "cov90": 0.8702777777777778,
+   "cov90_nominal": 0.9,
+   "width90": 31.838224411010742
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.8743137391877538
+  },
+  "tracking_map": {
+   "slope": 0.5678027264195268,
+   "corr": 0.7390184605182809,
+   "n": 7200,
+   "mean_abs_change": 11.119941711425781
+  }
+ },
+ "wave_mae": 8.780898094177246,
+ "flat_fraction": 0.0,
+ "by_change": [
+  {
+   "change_mmHg": "0-5",
+   "n": 2365,
+   "map_mae": 5.987727165222168,
+   "map_crps": 4.096523625250851,
+   "cov90": 0.9463002114164905,
+   "width90": 31.232934951782227,
+   "slope": 0.5423326136329853
+  },
+  {
+   "change_mmHg": "5-10",
+   "n": 1703,
+   "map_mae": 6.489062309265137,
+   "map_crps": 4.434101095121415,
+   "cov90": 0.92190252495596,
+   "width90": 31.35237693786621,
+   "slope": 0.5395815934844927
+  },
+  {
+   "change_mmHg": "10-20",
+   "n": 2004,
+   "map_mae": 8.149845123291016,
+   "map_crps": 5.663544269696284,
+   "cov90": 0.8488023952095808,
+   "width90": 32.041805267333984,
+   "slope": 0.5564765434008794
+  },
+  {
+   "change_mmHg": "20-inf",
+   "n": 1128,
+   "map_mae": 13.397411346435547,
+   "map_crps": 9.72358704471592,
+   "cov90": 0.6710992907801419,
+   "width90": 33.4791145324707,
+   "slope": 0.5724719651373574
+  }
+ ]
+}
