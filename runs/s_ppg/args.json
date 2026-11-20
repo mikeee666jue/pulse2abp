@@ -1,0 +1,31 @@
+{
+ "data": "/data/user_data/USER/p2a/vital3",
+ "out": "runs/s_ppg",
+ "train_split": "train",
+ "val_split": "val",
+ "mode": "gen",
+ "path": "cosine",
+ "p_hide": [
+  0.4
+ ],
+ "p_gap": [
+  0.2
+ ],
+ "fixed_visible": "ppg",
+ "init": null,
+ "p_drop_cal": 0.5,
+ "base": 64,
+ "steps": 15000,
+ "bs": 256,
+ "lr": 0.0002,
+ "warmup": 1000,
+ "ema": 0.999,
+ "val_every": 1000,
+ "val_n": 2048,
+ "val_sample_n": 512,
+ "val_k": 19,
+ "val_steps": 25,
+ "workers": 4,
+ "seed": 0,
+ "resume": true
+}

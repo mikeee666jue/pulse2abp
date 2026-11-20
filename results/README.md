@@ -15,11 +15,17 @@ turns them into the tables of the main README.
 | `n7200_k19_s50/m3_nocal.json`, `m3_w0.json`, `m3_w2.json` | first-round M3 without calibration, with the pulse switched off, with the pulse weight doubled |
 | `n7200_k19_s50/b1_noise.json`, `m1_noise.json`, `m3_noise.json` | first-round checkpoints with the noisy pulse |
 | `n7200_k19_s25/m3.json`, `n7200_k19_s100/m3.json` | first-round M3 sampled with 25 and with 100 steps |
-| `comparisons/*.txt` | output of `scripts/steps_compare.py`: paired differences with bootstrap intervals |
+| `comparisons/*.txt` | output of `scripts/steps_compare.py`, `scripts/reanalyze.py` and `scripts/gaps_table.py`: paired differences with bootstrap intervals |
+| `general/<run>/abp_from_ppg.json` | general model, ABP from PPG, for `g1`, `g1_seed1`, `g1_abpw`, `g1_abpw_seed1`, `s_ppg`, `g1_ft_ppg`, `g1_twin` (written by `scripts/evaluate_general.py`, like everything under `general/`) |
+| `general/g1/`, `general/g1_twin/`: `<target>_from_<visible>[_cal].json` | signal grid: one signal generated from the visible ones, `_cal` = with a calibration reading |
+| `general/g1/`, `general/g1_twin/`: `<target>_gap<seconds>_<alone or others>.json` | gap filling: one span of the target hidden, with nothing else visible or with the two other signals visible |
+| `general/g1_twin_last/` | the same gap cells and ABP from PPG for the twin's last checkpoint (step 60,000) instead of its kept one (step 6,000) |
+| `general/base/<target>_gap<seconds>_<copy or linear>.json` | the same gaps filled without a model |
 
 Settings: files directly in `results/` use 20,000 test segments and 39 draws per segment. The folders
 `n7200_k19_s<steps>/` use 7,200 test segments, 19 draws and the stated number of sampling steps. The 7,200
-segments are a subset of the 20,000, with the same calibration readings.
+segments are a subset of the 20,000, with the same calibration readings. Everything under `general/` uses
+those same 7,200 segments with 19 draws and 50 sampling steps.
 
 ## Fields
 
@@ -31,6 +37,11 @@ segments are a subset of the 20,000, with the same calibration readings.
     wave_mae      mean absolute error between the true waveform and the mean of the drawn waveforms, in mmHg
     flat_fraction share of drawn waveforms in which the checker found no beat
     by_change     the MAP metrics split by how far the true MAP is from the calibration reading
+
+Files under `general/` also have `target`, `visible`, `gap_sec` and `wave`: the pointwise `crps`, the
+error of the mean of the draws (`mae_mean`, `rmse_mean`) on the hidden samples, in the model's units (for
+ABP also in mmHg, with the suffix `_mmhg`; for PPG and ECG in units of each segment's standard deviation).
+Only whole-signal ABP files carry `metrics`.
 
 All pressures are in mmHg. `tracking_map` is kept for completeness but is not a valid measure (a constant
 prediction scores 0.50); the main README uses pulse-following from `reanalysis_map.json` instead.

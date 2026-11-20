@@ -1,0 +1,32 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": null,
+  "baseline": "copy",
+  "split": "test",
+  "target": "ppg",
+  "visible": "none",
+  "gap": 2.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/base/ppg_gap2_copy.json"
+ },
+ "train_args": {
+  "mode": "copy"
+ },
+ "n": 7200,
+ "target": "ppg",
+ "visible": [],
+ "gap_sec": 2.0,
+ "wave": {
+  "crps": 0.1747034639120102,
+  "mae_mean": 0.1747034639120102,
+  "rmse_mean": 0.23410291969776154
+ }
+}

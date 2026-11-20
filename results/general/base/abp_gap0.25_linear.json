@@ -1,0 +1,35 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": null,
+  "baseline": "linear",
+  "split": "test",
+  "target": "abp",
+  "visible": "none",
+  "gap": 0.25,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/base/abp_gap0.25_linear.json"
+ },
+ "train_args": {
+  "mode": "linear"
+ },
+ "n": 7200,
+ "target": "abp",
+ "visible": [],
+ "gap_sec": 0.25,
+ "wave": {
+  "crps": 0.24638400971889496,
+  "mae_mean": 0.24638400971889496,
+  "rmse_mean": 0.2876625657081604,
+  "crps_mmhg": 7.391520291566849,
+  "mae_mean_mmhg": 7.391520291566849,
+  "rmse_mean_mmhg": 8.629876971244812
+ }
+}

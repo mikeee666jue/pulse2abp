@@ -1,0 +1,102 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": "runs/g1_abpw_seed1/best.pt",
+  "baseline": "none",
+  "split": "test",
+  "target": "abp",
+  "visible": "ppg",
+  "gap": 0.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/g1_abpw_seed1/abp_from_ppg.json"
+ },
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "out": "runs/g1_abpw_seed1",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "gen",
+  "path": "cosine",
+  "p_hide": [
+   0.6,
+   0.25,
+   0.4
+  ],
+  "p_gap": [
+   0.2
+  ],
+  "fixed_visible": null,
+  "init": null,
+  "p_drop_cal": 0.5,
+  "base": 64,
+  "steps": 60000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "val_every": 2000,
+  "val_n": 2048,
+  "val_sample_n": 512,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 1,
+  "resume": true
+ },
+ "n": 7200,
+ "target": "abp",
+ "visible": [
+  "ppg"
+ ],
+ "gap_sec": 0.0,
+ "wave": {
+  "crps": 0.23946566879749298,
+  "mae_mean": 0.34130480885505676,
+  "rmse_mean": 0.3824303448200226,
+  "crps_mmhg": 7.183970063924789,
+  "mae_mean_mmhg": 10.239144265651703,
+  "rmse_mean_mmhg": 11.472910344600677
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 12.824292182922363,
+   "me": -1.686524510383606,
+   "sd": 16.22718048095703,
+   "crps": 9.015123341289568,
+   "cov90": 0.8393055555555555,
+   "cov90_nominal": 0.9,
+   "width90": 48.32663345336914
+  },
+  "dbp": {
+   "mae": 8.082550048828125,
+   "me": -0.5285091400146484,
+   "sd": 10.24257755279541,
+   "crps": 5.6737574587865955,
+   "cov90": 0.8429166666666666,
+   "cov90_nominal": 0.9,
+   "width90": 30.897287368774414
+  },
+  "map": {
+   "mae": 9.318089485168457,
+   "me": -0.7468982338905334,
+   "sd": 11.72529411315918,
+   "crps": 6.528578828752157,
+   "cov90": 0.8327777777777777,
+   "cov90_nominal": 0.9,
+   "width90": 34.71881866455078
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.8048265791437217
+  }
+ },
+ "wave_mae": 10.239144325256348,
+ "flat_fraction": 0.0
+}

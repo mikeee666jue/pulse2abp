@@ -1,0 +1,32 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": null,
+  "baseline": "linear",
+  "split": "test",
+  "target": "ecg",
+  "visible": "none",
+  "gap": 8.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/base/ecg_gap8_linear.json"
+ },
+ "train_args": {
+  "mode": "linear"
+ },
+ "n": 7200,
+ "target": "ecg",
+ "visible": [],
+ "gap_sec": 8.0,
+ "wave": {
+  "crps": 0.7988514304161072,
+  "mae_mean": 0.7988514304161072,
+  "rmse_mean": 1.2147341966629028
+ }
+}

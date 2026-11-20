@@ -1,0 +1,100 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": "runs/g1_seed1/best.pt",
+  "baseline": "none",
+  "split": "test",
+  "target": "abp",
+  "visible": "ppg",
+  "gap": 0.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/g1_seed1/abp_from_ppg.json"
+ },
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "out": "runs/g1_seed1",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "gen",
+  "path": "cosine",
+  "p_hide": [
+   0.4
+  ],
+  "p_gap": [
+   0.2
+  ],
+  "fixed_visible": null,
+  "init": null,
+  "p_drop_cal": 0.5,
+  "base": 64,
+  "steps": 60000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "val_every": 2000,
+  "val_n": 2048,
+  "val_sample_n": 512,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 1,
+  "resume": true
+ },
+ "n": 7200,
+ "target": "abp",
+ "visible": [
+  "ppg"
+ ],
+ "gap_sec": 0.0,
+ "wave": {
+  "crps": 0.23982788622379303,
+  "mae_mean": 0.3426099419593811,
+  "rmse_mean": 0.38413262367248535,
+  "crps_mmhg": 7.194836586713791,
+  "mae_mean_mmhg": 10.278298258781433,
+  "rmse_mean_mmhg": 11.52397871017456
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 12.915275573730469,
+   "me": -2.211717367172241,
+   "sd": 16.28420639038086,
+   "crps": 9.056753871253436,
+   "cov90": 0.8458333333333333,
+   "cov90_nominal": 0.9,
+   "width90": 49.12169647216797
+  },
+  "dbp": {
+   "mae": 8.107828140258789,
+   "me": -0.851298987865448,
+   "sd": 10.241520881652832,
+   "crps": 5.675319861713518,
+   "cov90": 0.8529166666666667,
+   "cov90_nominal": 0.9,
+   "width90": 31.587770462036133
+  },
+  "map": {
+   "mae": 9.355069160461426,
+   "me": -1.1357413530349731,
+   "sd": 11.719148635864258,
+   "crps": 6.522946063850977,
+   "cov90": 0.8483333333333334,
+   "cov90_nominal": 0.9,
+   "width90": 35.74651336669922
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.7988792342180164
+  }
+ },
+ "wave_mae": 10.27829647064209,
+ "flat_fraction": 0.0
+}

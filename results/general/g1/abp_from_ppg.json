@@ -1,0 +1,100 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": "runs/g1/best.pt",
+  "baseline": "none",
+  "split": "test",
+  "target": "abp",
+  "visible": "ppg",
+  "gap": 0.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/g1/abp_from_ppg.json"
+ },
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "out": "runs/g1",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "gen",
+  "path": "cosine",
+  "p_hide": [
+   0.4
+  ],
+  "p_gap": [
+   0.2
+  ],
+  "fixed_visible": null,
+  "init": null,
+  "p_drop_cal": 0.5,
+  "base": 64,
+  "steps": 60000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "val_every": 2000,
+  "val_n": 2048,
+  "val_sample_n": 512,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 0,
+  "resume": true
+ },
+ "n": 7200,
+ "target": "abp",
+ "visible": [
+  "ppg"
+ ],
+ "gap_sec": 0.0,
+ "wave": {
+  "crps": 0.2387242615222931,
+  "mae_mean": 0.34145793318748474,
+  "rmse_mean": 0.38300657272338867,
+  "crps_mmhg": 7.161727845668793,
+  "mae_mean_mmhg": 10.243737995624542,
+  "rmse_mean_mmhg": 11.49019718170166
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 12.931218147277832,
+   "me": -2.2338929176330566,
+   "sd": 16.297183990478516,
+   "crps": 9.050638478404906,
+   "cov90": 0.8475,
+   "cov90_nominal": 0.9,
+   "width90": 48.667152404785156
+  },
+  "dbp": {
+   "mae": 8.05882740020752,
+   "me": -0.5562300086021423,
+   "sd": 10.210111618041992,
+   "crps": 5.620830780892809,
+   "cov90": 0.8566666666666667,
+   "cov90_nominal": 0.9,
+   "width90": 31.589452743530273
+  },
+  "map": {
+   "mae": 9.296849250793457,
+   "me": -0.8849227428436279,
+   "sd": 11.705739974975586,
+   "crps": 6.485400696606354,
+   "cov90": 0.8479166666666667,
+   "cov90_nominal": 0.9,
+   "width90": 35.60987091064453
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.806793934772956
+  }
+ },
+ "wave_mae": 10.243739128112793,
+ "flat_fraction": 0.0
+}

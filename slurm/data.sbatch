@@ -13,6 +13,8 @@
 #
 # Usage (from the repo folder):  mkdir -p logs && sbatch slurm/data.sbatch
 # Result:  /data/user_data/$USER/p2a/vital/{train,val,test}/   <- this is DATA for training and evaluation
+# Stage 2 (with the ECG), into a separate folder so the Stage 1 data stays as it is:
+#   DATA_NAME=vital3 PREP_EXTRA=--ecg sbatch slurm/data.sbatch      -> /data/user_data/$USER/p2a/vital3
 # READ THE SANITY REPORT in the log before training on it.
 #
 #SBATCH --job-name=p2a-data
@@ -34,7 +36,7 @@ KAGGLE=.venv/bin/kaggle
 SLUG=weinanwangrutgers/pulsedb-balanced-training-and-testing
 BASE="/data/user_data/$USER/p2a"
 RAW="$BASE/raw"
-DATA="$BASE/vital"
+DATA="$BASE/${DATA_NAME:-vital}"
 LOCAL="/scratch/$USER/p2a_unpack_$SLURM_JOB_ID"
 mkdir -p "$LOCAL" 2>/dev/null || { LOCAL="/tmp/$USER-p2a_unpack_$SLURM_JOB_ID"; mkdir -p "$LOCAL"; }
 trap 'rm -rf "$LOCAL"' EXIT
@@ -85,10 +87,10 @@ convert() {    # convert <file> <done marker> <arguments for prep_pulsedb.py ...
 }
 
 echo "== convert: training file -> train + val (5% of subjects held out)"
-convert VitalDB_Train_Subset.mat "$DATA/val/meta.npz" --split train --val-frac 0.05 --jobs 8
+convert VitalDB_Train_Subset.mat "$DATA/val/meta.npz" --split train --val-frac 0.05 --jobs 8 ${PREP_EXTRA:-}
 
 echo "== convert: calibration-free test file -> test"
-convert VitalDB_CalFree_Test_Subset.mat "$DATA/test/meta.npz" --split test --jobs 8
+convert VitalDB_CalFree_Test_Subset.mat "$DATA/test/meta.npz" --split test --jobs 8 ${PREP_EXTRA:-}
 
 echo "== outputs"
 du -sh "$DATA"/*

@@ -112,7 +112,62 @@ def input_tests():
           ["Sampling steps", "Segments", "MAE", "CRPS", "90% coverage", "90% interval width"], rows)
 
 
+def general_model():
+    """Stage 2: the general model over ABP, PPG and ECG (results/general/)."""
+    G = "general"
+    runs = (("g1", "g1, general generator", 0, True), ("g1_seed1", "g1, general generator", 1, True),
+            ("g1_abpw", "g1_abpw, ABP from PPG trained more often", 0, True),
+            ("g1_abpw_seed1", "g1_abpw, ABP from PPG trained more often", 1, True),
+            ("s_ppg", "s_ppg, one mask only (PPG visible)", 0, True),
+            ("g1_ft_ppg", "g1_ft_ppg, g1 fine-tuned on that mask", 0, True),
+            ("g1_twin", "g1_twin, regression twin of g1", 0, False))
+    rows = []
+    for name, label, seed, draws in runs:
+        d = load(f"{G}/{name}/abp_from_ppg")
+        assert d["train_args"]["seed"] == seed and d["n"] == 7200, name
+        rows.append([label, str(seed)] + cells(d["metrics"], draws))
+    for name, seed in (("m1_s15k", 0), ("m1_s15k_seed1", 1)):
+        rows.append(["M1, single-task diffusion (Table 3)", str(seed)] + cells(load(f"n7200_k19_s50/{name}")["metrics"]))
+    table("Table 6. General model, ABP from PPG: 7,200 test segments, 19 draws, 50 sampling steps (mmHg)",
+          ["Model", "Seed", "SBP MAE", "DBP MAE", "MAP MAE", "MAP CRPS", "MAP 90% coverage"], rows)
+
+    rows = []
+    for visible, shown in (("ppg", "PPG"), ("ecg", "ECG"), ("ppg+ecg", "PPG + ECG")):
+        for cal, tag in (("no", ""), ("yes", "_cal")):
+            g, t = load(f"{G}/g1/abp_from_{visible}{tag}")["metrics"], load(f"{G}/g1_twin/abp_from_{visible}{tag}")["metrics"]
+            rows.append([shown, cal] + cells(g) + [num(t[q]["mae"]) for q in QUANTITIES])
+    table("Table 7. Signal grid, ABP generated from other signals: g1 and its regression twin, 7,200 test segments (mmHg)",
+          ["Visible", "Calibration", "g1 SBP MAE", "g1 DBP MAE", "g1 MAP MAE", "g1 MAP CRPS", "g1 MAP 90% coverage",
+           "twin SBP MAE", "twin DBP MAE", "twin MAP MAE"], rows, text_columns=2)
+
+    rows = []
+    for target, cellnames in (("PPG", (("ABP", "ppg_from_abp"), ("ECG", "ppg_from_ecg"), ("ABP + ECG", "ppg_from_abp+ecg"))),
+                              ("ECG", (("PPG", "ecg_from_ppg"), ("ABP", "ecg_from_abp"), ("PPG + ABP", "ecg_from_ppg+abp")))):
+        for visible, name in cellnames:
+            g, t = load(f"{G}/g1/{name}")["wave"], load(f"{G}/g1_twin/{name}")["wave"]
+            rows.append([target, visible, num(g["crps"], 3), num(g["mae_mean"], 3), num(t["mae_mean"], 3)])
+    table("Table 8. Signal grid, PPG and ECG generated from other signals (pointwise scores in units of each segment's SD)",
+          ["Target", "Visible", "g1 CRPS", "g1 error of mean", "twin error"], rows, text_columns=2)
+
+    for target, unit, key in (("abp", "mmHg", "_mmhg"), ("ppg", "units of each segment's SD", ""), ("ecg", "units of each segment's SD", "")):
+        rows = []
+        for gap in ("0.25", "1", "2", "4", "8"):
+            w = lambda run, tag: load(f"{G}/{run}/{target}_gap{gap}_{tag}")["wave"]
+            d = 2 if target == "abp" else 3
+            rows.append([f"{gap} s",
+                         num(w("g1", "alone")["crps" + key], d), num(w("g1", "alone")["mae_mean" + key], d),
+                         num(w("g1", "others")["crps" + key], d), num(w("g1", "others")["mae_mean" + key], d),
+                         num(w("g1_twin", "alone")["mae_mean" + key], d), num(w("g1_twin", "others")["mae_mean" + key], d),
+                         num(w("g1_twin_last", "alone")["mae_mean" + key], d), num(w("g1_twin_last", "others")["mae_mean" + key], d),
+                         num(w("base", "copy")["mae_mean" + key], d), num(w("base", "linear")["mae_mean" + key], d)])
+        n = {"abp": 9, "ppg": 10, "ecg": 11}[target]
+        table(f"Table {n}. Filling a gap in the {target.upper()}: error on the hidden span, 7,200 test segments ({unit})",
+              ["Gap", "g1 alone, CRPS", "g1 alone, error of mean", "g1 others, CRPS", "g1 others, error of mean",
+               "twin alone", "twin others", "twin at step 60,000, alone", "twin at step 60,000, others", "copy", "line"], rows)
+
+
 if __name__ == "__main__":
     first_round()
     second_round()
     input_tests()
+    general_model()

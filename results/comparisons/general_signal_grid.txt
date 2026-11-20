@@ -1,0 +1,80 @@
+General model, signal grid: ABP cells of g1 against each other and against M3 (same segments and calibration readings).
+Each "A minus B" line is a difference on the same test segments with a 95% interval from a bootstrap
+over the 144 test patients (1,000 resamples). Units are mmHg; coverage is a fraction.
+The scripts read the saved draws (*.npz) and the patient codes, which are not in this repository.
+
+$ python scripts/steps_compare.py --data results/ids --files g1_from_ppg=results/general/g1/abp_from_ppg.npz g1_from_ecg=results/general/g1/abp_from_ecg.npz g1_from_ppg+ecg=results/general/g1/abp_from_ppg+ecg.npz
+
+SBP: 7200 segments from 144 patients
+   g1_from_ppg, 19 draws: MAE 12.93  mean error -2.23  CRPS  9.05  coverage 0.848 (nominal 0.90)  width  48.7  mean draw SD 13.00  error SD 16.30
+   g1_from_ecg, 19 draws: MAE 14.42  mean error -2.25  CRPS 10.19  coverage 0.840 (nominal 0.90)  width  53.7  mean draw SD 14.34  error SD 18.37
+   g1_from_ppg+ecg, 19 draws: MAE 12.15  mean error -2.09  CRPS  8.60  coverage 0.834 (nominal 0.90)  width  44.7  mean draw SD 11.91  error SD 15.51
+   g1_from_ecg minus g1_from_ppg: MAE +1.487 [+0.627, +2.388]   CRPS +1.137 [+0.476, +1.831]   coverage -0.007 [-0.032, +0.016]   draw SD ratio 1.103
+   g1_from_ppg+ecg minus g1_from_ppg: MAE -0.783 [-1.259, -0.292]   CRPS -0.447 [-0.807, -0.056]   coverage -0.013 [-0.030, +0.005]   draw SD ratio 0.916
+
+DBP: 7200 segments from 144 patients
+   g1_from_ppg, 19 draws: MAE  8.06  mean error -0.56  CRPS  5.62  coverage 0.857 (nominal 0.90)  width  31.6  mean draw SD  8.41  error SD 10.21
+   g1_from_ecg, 19 draws: MAE  9.09  mean error -0.68  CRPS  6.38  coverage 0.834 (nominal 0.90)  width  34.2  mean draw SD  9.11  error SD 11.51
+   g1_from_ppg+ecg, 19 draws: MAE  7.99  mean error -1.02  CRPS  5.63  coverage 0.831 (nominal 0.90)  width  29.4  mean draw SD  7.82  error SD 10.10
+   g1_from_ecg minus g1_from_ppg: MAE +1.029 [+0.332, +1.676]   CRPS +0.762 [+0.257, +1.241]   coverage -0.022 [-0.052, +0.007]   draw SD ratio 1.082
+   g1_from_ppg+ecg minus g1_from_ppg: MAE -0.071 [-0.400, +0.271]   CRPS +0.012 [-0.234, +0.267]   coverage -0.026 [-0.042, -0.011]   draw SD ratio 0.929
+
+MAP: 7200 segments from 144 patients
+   g1_from_ppg, 19 draws: MAE  9.30  mean error -0.88  CRPS  6.49  coverage 0.848 (nominal 0.90)  width  35.6  mean draw SD  9.49  error SD 11.71
+   g1_from_ecg, 19 draws: MAE 10.86  mean error -0.84  CRPS  7.64  coverage 0.837 (nominal 0.90)  width  40.4  mean draw SD 10.78  error SD 13.78
+   g1_from_ppg+ecg, 19 draws: MAE  9.07  mean error -1.23  CRPS  6.41  coverage 0.820 (nominal 0.90)  width  32.7  mean draw SD  8.70  error SD 11.47
+   g1_from_ecg minus g1_from_ppg: MAE +1.568 [+0.777, +2.359]   CRPS +1.154 [+0.566, +1.727]   coverage -0.011 [-0.039, +0.018]   draw SD ratio 1.137
+   g1_from_ppg+ecg minus g1_from_ppg: MAE -0.231 [-0.600, +0.154]   CRPS -0.080 [-0.361, +0.214]   coverage -0.027 [-0.047, -0.009]   draw SD ratio 0.917
+
+$ python scripts/steps_compare.py --data results/ids --files g1_from_ppg_cal=results/general/g1/abp_from_ppg_cal.npz g1_from_ecg_cal=results/general/g1/abp_from_ecg_cal.npz g1_from_ppg+ecg_cal=results/general/g1/abp_from_ppg+ecg_cal.npz
+
+SBP: 7200 segments from 144 patients
+   g1_from_ppg_cal, 19 draws: MAE 11.79  mean error -2.12  CRPS  8.25  coverage 0.857 (nominal 0.90)  width  46.0  mean draw SD 12.25  error SD 14.91
+   g1_from_ecg_cal, 19 draws: MAE 13.13  mean error -2.53  CRPS  9.27  coverage 0.849 (nominal 0.90)  width  49.9  mean draw SD 13.30  error SD 16.79
+   g1_from_ppg+ecg_cal, 19 draws: MAE 11.21  mean error -1.96  CRPS  7.88  coverage 0.845 (nominal 0.90)  width  42.4  mean draw SD 11.30  error SD 14.25
+   g1_from_ecg_cal minus g1_from_ppg_cal: MAE +1.334 [+0.640, +1.998]   CRPS +1.022 [+0.518, +1.532]   coverage -0.008 [-0.028, +0.012]   draw SD ratio 1.086
+   g1_from_ppg+ecg_cal minus g1_from_ppg_cal: MAE -0.587 [-0.943, -0.208]   CRPS -0.372 [-0.633, -0.099]   coverage -0.012 [-0.027, +0.002]   draw SD ratio 0.922
+
+DBP: 7200 segments from 144 patients
+   g1_from_ppg_cal, 19 draws: MAE  6.47  mean error -0.60  CRPS  4.52  coverage 0.876 (nominal 0.90)  width  26.9  mean draw SD  7.15  error SD  8.38
+   g1_from_ecg_cal, 19 draws: MAE  7.26  mean error -0.82  CRPS  5.10  coverage 0.863 (nominal 0.90)  width  28.8  mean draw SD  7.65  error SD  9.43
+   g1_from_ppg+ecg_cal, 19 draws: MAE  6.44  mean error -0.85  CRPS  4.52  coverage 0.860 (nominal 0.90)  width  25.2  mean draw SD  6.70  error SD  8.32
+   g1_from_ecg_cal minus g1_from_ppg_cal: MAE +0.794 [+0.398, +1.187]   CRPS +0.580 [+0.293, +0.867]   coverage -0.013 [-0.032, +0.005]   draw SD ratio 1.070
+   g1_from_ppg+ecg_cal minus g1_from_ppg_cal: MAE -0.021 [-0.217, +0.173]   CRPS +0.003 [-0.137, +0.149]   coverage -0.016 [-0.030, -0.005]   draw SD ratio 0.936
+
+MAP: 7200 segments from 144 patients
+   g1_from_ppg_cal, 19 draws: MAE  8.01  mean error -0.90  CRPS  5.60  coverage 0.862 (nominal 0.90)  width  32.0  mean draw SD  8.54  error SD 10.23
+   g1_from_ecg_cal, 19 draws: MAE  9.39  mean error -1.02  CRPS  6.59  coverage 0.849 (nominal 0.90)  width  36.0  mean draw SD  9.60  error SD 12.07
+   g1_from_ppg+ecg_cal, 19 draws: MAE  7.82  mean error -1.08  CRPS  5.48  coverage 0.849 (nominal 0.90)  width  29.6  mean draw SD  7.87  error SD  9.99
+   g1_from_ecg_cal minus g1_from_ppg_cal: MAE +1.380 [+0.865, +1.881]   CRPS +0.990 [+0.609, +1.354]   coverage -0.012 [-0.033, +0.008]   draw SD ratio 1.125
+   g1_from_ppg+ecg_cal minus g1_from_ppg_cal: MAE -0.191 [-0.450, +0.069]   CRPS -0.114 [-0.296, +0.078]   coverage -0.012 [-0.026, -0.000]   draw SD ratio 0.922
+
+$ python scripts/steps_compare.py --data results/ids --files M3=results/n7200_k19_s50/m3_s15k.npz g1_from_ppg_cal=results/general/g1/abp_from_ppg_cal.npz g1_from_ppg+ecg_cal=results/general/g1/abp_from_ppg+ecg_cal.npz twin_from_ppg_cal=results/general/g1_twin/abp_from_ppg_cal.npz
+
+SBP: 7200 segments from 144 patients
+           M3, 19 draws: MAE 11.53  mean error -0.93  CRPS  8.02  coverage 0.869 (nominal 0.90)  width  46.1  mean draw SD 12.31  error SD 14.71
+   g1_from_ppg_cal, 19 draws: MAE 11.79  mean error -2.12  CRPS  8.25  coverage 0.857 (nominal 0.90)  width  46.0  mean draw SD 12.25  error SD 14.91
+   g1_from_ppg+ecg_cal, 19 draws: MAE 11.21  mean error -1.96  CRPS  7.88  coverage 0.845 (nominal 0.90)  width  42.4  mean draw SD 11.30  error SD 14.25
+   twin_from_ppg_cal, 1 draws: MAE 11.83  mean error -4.17
+   g1_from_ppg_cal minus M3: MAE +0.265 [+0.086, +0.460]   CRPS +0.231 [+0.096, +0.371]   coverage -0.012 [-0.022, -0.001]   draw SD ratio 0.995
+   g1_from_ppg+ecg_cal minus M3: MAE -0.322 [-0.711, +0.063]   CRPS -0.141 [-0.427, +0.155]   coverage -0.024 [-0.041, -0.008]   draw SD ratio 0.918
+   twin_from_ppg_cal minus M3: MAE +0.305 [-0.003, +0.638]
+
+DBP: 7200 segments from 144 patients
+           M3, 19 draws: MAE  6.38  mean error -0.26  CRPS  4.47  coverage 0.878 (nominal 0.90)  width  26.7  mean draw SD  7.09  error SD  8.32
+   g1_from_ppg_cal, 19 draws: MAE  6.47  mean error -0.60  CRPS  4.52  coverage 0.876 (nominal 0.90)  width  26.9  mean draw SD  7.15  error SD  8.38
+   g1_from_ppg+ecg_cal, 19 draws: MAE  6.44  mean error -0.85  CRPS  4.52  coverage 0.860 (nominal 0.90)  width  25.2  mean draw SD  6.70  error SD  8.32
+   twin_from_ppg_cal, 1 draws: MAE  6.23  mean error +0.16
+   g1_from_ppg_cal minus M3: MAE +0.082 [-0.011, +0.176]   CRPS +0.052 [-0.011, +0.118]   coverage -0.002 [-0.010, +0.006]   draw SD ratio 1.009
+   g1_from_ppg+ecg_cal minus M3: MAE +0.060 [-0.145, +0.273]   CRPS +0.055 [-0.096, +0.211]   coverage -0.019 [-0.032, -0.006]   draw SD ratio 0.944
+   twin_from_ppg_cal minus M3: MAE -0.153 [-0.220, -0.086]
+
+MAP: 7200 segments from 144 patients
+           M3, 19 draws: MAE  7.87  mean error -0.25  CRPS  5.49  coverage 0.870 (nominal 0.90)  width  31.8  mean draw SD  8.49  error SD 10.13
+   g1_from_ppg_cal, 19 draws: MAE  8.01  mean error -0.90  CRPS  5.60  coverage 0.862 (nominal 0.90)  width  32.0  mean draw SD  8.54  error SD 10.23
+   g1_from_ppg+ecg_cal, 19 draws: MAE  7.82  mean error -1.08  CRPS  5.48  coverage 0.849 (nominal 0.90)  width  29.6  mean draw SD  7.87  error SD  9.99
+   twin_from_ppg_cal, 1 draws: MAE  7.74  mean error -0.82
+   g1_from_ppg_cal minus M3: MAE +0.138 [+0.023, +0.256]   CRPS +0.104 [+0.017, +0.189]   coverage -0.008 [-0.016, +0.000]   draw SD ratio 1.006
+   g1_from_ppg+ecg_cal minus M3: MAE -0.054 [-0.326, +0.225]   CRPS -0.010 [-0.207, +0.201]   coverage -0.021 [-0.036, -0.007]   draw SD ratio 0.927
+   twin_from_ppg_cal minus M3: MAE -0.130 [-0.212, -0.039]
+

@@ -10,6 +10,8 @@ PulseDB subset files (MATLAB v7.3 = HDF5) hold one struct `Subset` with
     python scripts/prep_pulsedb.py --mat VitalDB_Train_Subset.mat --root $DATA --split train --val-frac 0.05
     # calibration-free test set (subjects never seen in training)
     python scripts/prep_pulsedb.py --mat VitalDB_CalFree_Test_Subset.mat --root $DATA --split test
+    # Stage 2: add --ecg to both commands and use a NEW root. It writes the same files plus ecg.npy;
+    # scripts/compare_roots.py then confirms that PPG, ABP and the patient split equal the Stage 1 root.
 
 It prints a sanity report. READ IT: if the ABP range is not in mmHg, or the checker and the dataset
 labels disagree by more than a few mmHg, the channel order or array orientation is wrong.
@@ -26,7 +28,7 @@ from p2a import SEG_LEN                      # noqa: E402
 from p2a.data import write_split             # noqa: E402
 
 
-def read_subset_h5(path, field="Subset", chunk=20000):
+def read_subset_h5(path, field="Subset", chunk=20000, want_ecg=False):
     """Chunked reader, so a 27 GB file never has to sit in RAM as float64."""
     import h5py
     f = h5py.File(path, "r")
@@ -38,21 +40,24 @@ def read_subset_h5(path, field="Subset", chunk=20000):
     n = shape[ax_n]
     ppg = np.empty((n, SEG_LEN), dtype=np.float32)
     abp = np.empty((n, SEG_LEN), dtype=np.float32)
+    ecg = np.empty((n, SEG_LEN), dtype=np.float32) if want_ecg else None
     for i in range(0, n, chunk):
         sl = [slice(None)] * 3
         sl[ax_n] = slice(i, min(n, i + chunk))
         block = np.moveaxis(sig[tuple(sl)], (ax_n, ax_ch, ax_len), (0, 1, 2))   # (m, 3, 1250)
         ppg[i:i + block.shape[0]] = block[:, 1]
         abp[i:i + block.shape[0]] = block[:, 2]
+        if want_ecg:
+            ecg[i:i + block.shape[0]] = block[:, 0]
         print(f"  read {min(n, i + chunk)}/{n}", flush=True)
     sbp = np.asarray(g["SBP"]).reshape(-1).astype(np.float32)
     dbp = np.asarray(g["DBP"]).reshape(-1).astype(np.float32)
     refs = np.asarray(g["Subject"]).reshape(-1)
     names = np.array(["".join(chr(c) for c in np.asarray(f[r]).reshape(-1)) for r in refs])
-    return ppg, abp, sbp, dbp, names
+    return ppg, abp, sbp, dbp, names, ecg
 
 
-def read_subset_mat73(path, field="Subset"):
+def read_subset_mat73(path, field="Subset", want_ecg=False):
     """Fallback: the loader PulseDB's own README uses. Needs RAM for the whole file."""
     from mat73 import loadmat
     d = loadmat(path)[field]
@@ -60,7 +65,8 @@ def read_subset_mat73(path, field="Subset"):
     names = np.array([str(np.asarray(s).reshape(-1)[0]) if not isinstance(s, str) else s for s in d["Subject"]])
     return (sig[:, 1].astype(np.float32), sig[:, 2].astype(np.float32),
             np.asarray(d["SBP"]).reshape(-1).astype(np.float32),
-            np.asarray(d["DBP"]).reshape(-1).astype(np.float32), names)
+            np.asarray(d["DBP"]).reshape(-1).astype(np.float32), names,
+            sig[:, 0].astype(np.float32) if want_ecg else None)
 
 
 def report(name, meta, ppg, abp):
@@ -89,9 +95,10 @@ def main():
     p.add_argument("--mat73", action="store_true", help="use the mat73 loader instead of chunked h5py")
     p.add_argument("--jobs", type=int, default=8)
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--ecg", action="store_true", help="also write ecg.npy (channel 0 of the file), needed for Stage 2")
     a = p.parse_args()
 
-    ppg, abp, sbp, dbp, names = (read_subset_mat73 if a.mat73 else read_subset_h5)(a.mat)
+    ppg, abp, sbp, dbp, names, ecg = (read_subset_mat73 if a.mat73 else read_subset_h5)(a.mat, want_ecg=a.ecg)
     root = Path(a.root)
     root.mkdir(parents=True, exist_ok=True)
     # one name -> code table shared by every split, so the same subject keeps the same code
@@ -112,6 +119,13 @@ def main():
     for name, m in parts.items():
         meta = write_split(root, name, ppg[m], abp[m], subj[m], sbp[m], dbp[m], n_jobs=a.jobs)
         report(name, meta, ppg[m], abp[m])
+        if a.ecg:
+            e = np.ascontiguousarray(ecg[m], dtype=np.float32)
+            np.save(root / name / "ecg.npy", e)
+            sd = e.std(1)
+            print(f"  ECG min/max: {np.nanmin(e[::50]):.2f}/{np.nanmax(e[::50]):.2f}   "
+                  f"flat segments (SD < 1e-6): {100 * (sd < 1e-6).mean():.2f}%   "
+                  f"segments with NaN: {100 * np.isnan(e).any(1).mean():.2f}%")
 
 
 if __name__ == "__main__":

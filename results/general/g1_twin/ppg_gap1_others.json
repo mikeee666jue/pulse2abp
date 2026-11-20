@@ -1,0 +1,63 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": "runs/g1_twin/best.pt",
+  "baseline": "none",
+  "split": "test",
+  "target": "ppg",
+  "visible": "abp,ecg",
+  "gap": 1.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/g1_twin/ppg_gap1_others.json"
+ },
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "out": "runs/g1_twin",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "reg",
+  "path": "cosine",
+  "p_hide": [
+   0.4
+  ],
+  "p_gap": [
+   0.2
+  ],
+  "fixed_visible": null,
+  "init": null,
+  "p_drop_cal": 0.5,
+  "base": 64,
+  "steps": 60000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "val_every": 2000,
+  "val_n": 2048,
+  "val_sample_n": 512,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 0,
+  "resume": true
+ },
+ "n": 7200,
+ "target": "ppg",
+ "visible": [
+  "abp",
+  "ecg"
+ ],
+ "gap_sec": 1.0,
+ "wave": {
+  "crps": 0.08377648144960403,
+  "mae_mean": 0.08377648144960403,
+  "rmse_mean": 0.10319733619689941
+ }
+}

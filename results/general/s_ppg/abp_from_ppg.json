@@ -1,0 +1,100 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": "runs/s_ppg/best.pt",
+  "baseline": "none",
+  "split": "test",
+  "target": "abp",
+  "visible": "ppg",
+  "gap": 0.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/s_ppg/abp_from_ppg.json"
+ },
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "out": "runs/s_ppg",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "gen",
+  "path": "cosine",
+  "p_hide": [
+   0.4
+  ],
+  "p_gap": [
+   0.2
+  ],
+  "fixed_visible": "ppg",
+  "init": null,
+  "p_drop_cal": 0.5,
+  "base": 64,
+  "steps": 15000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "val_every": 1000,
+  "val_n": 2048,
+  "val_sample_n": 512,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 0,
+  "resume": true
+ },
+ "n": 7200,
+ "target": "abp",
+ "visible": [
+  "ppg"
+ ],
+ "gap_sec": 0.0,
+ "wave": {
+  "crps": 0.23838301002979279,
+  "mae_mean": 0.3414192497730255,
+  "rmse_mean": 0.38252875208854675,
+  "crps_mmhg": 7.151490300893784,
+  "mae_mean_mmhg": 10.242577493190765,
+  "rmse_mean_mmhg": 11.475862562656403
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 12.761624336242676,
+   "me": -1.801393747329712,
+   "sd": 16.132545471191406,
+   "crps": 8.918398276602316,
+   "cov90": 0.8568055555555556,
+   "cov90_nominal": 0.9,
+   "width90": 49.81756591796875
+  },
+  "dbp": {
+   "mae": 8.105783462524414,
+   "me": -0.7079548239707947,
+   "sd": 10.227436065673828,
+   "crps": 5.659658856377964,
+   "cov90": 0.8547222222222223,
+   "cov90_nominal": 0.9,
+   "width90": 31.63246726989746
+  },
+  "map": {
+   "mae": 9.314257621765137,
+   "me": -0.8816073536872864,
+   "sd": 11.670001029968262,
+   "crps": 6.479669895996283,
+   "cov90": 0.8486111111111111,
+   "cov90_nominal": 0.9,
+   "width90": 35.65550231933594
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.8084755909580057
+  }
+ },
+ "wave_mae": 10.242576599121094,
+ "flat_fraction": 0.0
+}

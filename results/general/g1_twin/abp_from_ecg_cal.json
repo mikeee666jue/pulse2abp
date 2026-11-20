@@ -1,0 +1,106 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": "runs/g1_twin/best.pt",
+  "baseline": "none",
+  "split": "test",
+  "target": "abp",
+  "visible": "ecg",
+  "gap": 0.0,
+  "cal": "fixed",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/g1_twin/abp_from_ecg_cal.json"
+ },
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "out": "runs/g1_twin",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "reg",
+  "path": "cosine",
+  "p_hide": [
+   0.4
+  ],
+  "p_gap": [
+   0.2
+  ],
+  "fixed_visible": null,
+  "init": null,
+  "p_drop_cal": 0.5,
+  "base": 64,
+  "steps": 60000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "val_every": 2000,
+  "val_n": 2048,
+  "val_sample_n": 512,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 0,
+  "resume": true
+ },
+ "n": 7200,
+ "target": "abp",
+ "visible": [
+  "ecg"
+ ],
+ "gap_sec": 0.0,
+ "wave": {
+  "crps": 0.33428245782852173,
+  "mae_mean": 0.33428245782852173,
+  "rmse_mean": 0.384359210729599,
+  "crps_mmhg": 10.028473734855652,
+  "mae_mean_mmhg": 10.028473734855652,
+  "rmse_mean_mmhg": 11.53077632188797
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 13.246562957763672,
+   "me": -5.521596908569336,
+   "sd": 16.527427673339844,
+   "crps": 13.246561714808147,
+   "cov90": NaN,
+   "cov90_nominal": NaN,
+   "width90": 0.0
+  },
+  "dbp": {
+   "mae": 6.987122058868408,
+   "me": -0.3350137770175934,
+   "sd": 9.199485778808594,
+   "crps": 6.987121597131093,
+   "cov90": NaN,
+   "cov90_nominal": NaN,
+   "width90": 0.0
+  },
+  "map": {
+   "mae": 9.06030559539795,
+   "me": -1.2281289100646973,
+   "sd": 11.776403427124023,
+   "crps": 9.060305824809603,
+   "cov90": NaN,
+   "cov90_nominal": NaN,
+   "width90": 0.0
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.8140485710947791
+  },
+  "tracking_map": {
+   "slope": 0.4225836037366535,
+   "corr": 0.6233624024641867,
+   "n": 7200,
+   "mean_abs_change": 11.119941711425781
+  }
+ },
+ "wave_mae": 10.028474807739258,
+ "flat_fraction": 0.0
+}

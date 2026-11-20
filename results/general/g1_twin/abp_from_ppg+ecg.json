@@ -1,0 +1,101 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": "runs/g1_twin/best.pt",
+  "baseline": "none",
+  "split": "test",
+  "target": "abp",
+  "visible": "ppg,ecg",
+  "gap": 0.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/g1_twin/abp_from_ppg+ecg.json"
+ },
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "out": "runs/g1_twin",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "reg",
+  "path": "cosine",
+  "p_hide": [
+   0.4
+  ],
+  "p_gap": [
+   0.2
+  ],
+  "fixed_visible": null,
+  "init": null,
+  "p_drop_cal": 0.5,
+  "base": 64,
+  "steps": 60000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "val_every": 2000,
+  "val_n": 2048,
+  "val_sample_n": 512,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 0,
+  "resume": true
+ },
+ "n": 7200,
+ "target": "abp",
+ "visible": [
+  "ppg",
+  "ecg"
+ ],
+ "gap_sec": 0.0,
+ "wave": {
+  "crps": 0.3246457576751709,
+  "mae_mean": 0.3246457576751709,
+  "rmse_mean": 0.3608774244785309,
+  "crps_mmhg": 9.739372730255127,
+  "mae_mean_mmhg": 9.739372730255127,
+  "rmse_mean_mmhg": 10.826322734355927
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 12.47330379486084,
+   "me": -4.639544486999512,
+   "sd": 15.371143341064453,
+   "crps": 12.473304464552138,
+   "cov90": NaN,
+   "cov90_nominal": NaN,
+   "width90": 0.0
+  },
+  "dbp": {
+   "mae": 7.854785919189453,
+   "me": -0.7069603204727173,
+   "sd": 9.99746322631836,
+   "crps": 7.854785592026181,
+   "cov90": NaN,
+   "cov90_nominal": NaN,
+   "width90": 0.0
+  },
+  "map": {
+   "mae": 8.982705116271973,
+   "me": -1.4858120679855347,
+   "sd": 11.359307289123535,
+   "crps": 8.982704916530185,
+   "cov90": NaN,
+   "cov90_nominal": NaN,
+   "width90": 0.0
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.8347775534773434
+  }
+ },
+ "wave_mae": 9.739373207092285,
+ "flat_fraction": 0.0
+}

@@ -1,0 +1,101 @@
+{
+ "config": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "ckpt": "runs/g1/best.pt",
+  "baseline": "none",
+  "split": "test",
+  "target": "abp",
+  "visible": "ppg,ecg",
+  "gap": 0.0,
+  "cal": "none",
+  "n": 7200,
+  "k": 19,
+  "steps": 50,
+  "bs": 256,
+  "workers": 8,
+  "seed": 0,
+  "save_waves": 0,
+  "out": "results/general/g1/abp_from_ppg+ecg.json"
+ },
+ "train_args": {
+  "data": "/data/user_data/USER/p2a/vital3",
+  "out": "runs/g1",
+  "train_split": "train",
+  "val_split": "val",
+  "mode": "gen",
+  "path": "cosine",
+  "p_hide": [
+   0.4
+  ],
+  "p_gap": [
+   0.2
+  ],
+  "fixed_visible": null,
+  "init": null,
+  "p_drop_cal": 0.5,
+  "base": 64,
+  "steps": 60000,
+  "bs": 256,
+  "lr": 0.0002,
+  "warmup": 1000,
+  "ema": 0.999,
+  "val_every": 2000,
+  "val_n": 2048,
+  "val_sample_n": 512,
+  "val_k": 19,
+  "val_steps": 25,
+  "workers": 4,
+  "seed": 0,
+  "resume": true
+ },
+ "n": 7200,
+ "target": "abp",
+ "visible": [
+  "ppg",
+  "ecg"
+ ],
+ "gap_sec": 0.0,
+ "wave": {
+  "crps": 0.22987233102321625,
+  "mae_mean": 0.32544583082199097,
+  "rmse_mean": 0.35947275161743164,
+  "crps_mmhg": 6.896169930696487,
+  "mae_mean_mmhg": 9.763374924659729,
+  "rmse_mean_mmhg": 10.78418254852295
+ },
+ "metrics": {
+  "sbp": {
+   "mae": 12.148381233215332,
+   "me": -2.0901832580566406,
+   "sd": 15.513421058654785,
+   "crps": 8.60337598210732,
+   "cov90": 0.8344444444444444,
+   "cov90_nominal": 0.9,
+   "width90": 44.660037994384766
+  },
+  "dbp": {
+   "mae": 7.987709999084473,
+   "me": -1.0181570053100586,
+   "sd": 10.10426139831543,
+   "crps": 5.633142685684157,
+   "cov90": 0.8309722222222222,
+   "cov90_nominal": 0.9,
+   "width90": 29.36240005493164
+  },
+  "map": {
+   "mae": 9.06632137298584,
+   "me": -1.2261462211608887,
+   "sd": 11.469655990600586,
+   "crps": 6.405215528812247,
+   "cov90": 0.8204166666666667,
+   "cov90_nominal": 0.9,
+   "width90": 32.65010070800781
+  },
+  "hypo": {
+   "prevalence": 0.10875,
+   "auroc": 0.8160751364660163
+  }
+ },
+ "wave_mae": 9.763374328613281,
+ "flat_fraction": 0.0
+}

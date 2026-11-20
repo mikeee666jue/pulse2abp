@@ -1,0 +1,90 @@
+General model, ABP from PPG, MAP: generation against the regression twin, and within- and between-patient behaviour.
+Same 7,200 test segments. Intervals are 95% from a bootstrap over the 144 test patients (1,000 resamples).
+"constant bar" is one Gaussian error bar of fixed width around a point prediction, fitted on half of the test
+patients and scored on the other half. m3 (Table 3, with calibration) is listed because its file carries the
+calibration readings the script needs. The script reads the saved draws (*.npz) and the patient codes, which are
+not in this repository; for this run the files were placed in one folder under the names shown.
+
+$ python scripts/reanalyze.py --results <folder> --arms g1_twin g1 g1_seed1 g1_abpw g1_abpw_seed1 s_ppg g1_ft_ppg m1_seed0 m1_seed1 m3 \
+      --cal-from m3 --pulse-only g1_twin --data results/ids
+MAP: 7200 segments from 144 patients
+
+1. Distribution vs constant error bar (CRPS, lower is better)
+   g1_twin MAE  9.10   CRPS: own draws   - , mean + constant bar 6.47
+   g1   MAE  9.30   CRPS: own draws 6.49, mean + constant bar 6.61   posterior SD 9.5 vs error SD 11.7, rank corr(SD, |error|) 0.07, coverage 0.85
+   g1_seed1 MAE  9.36   CRPS: own draws 6.52, mean + constant bar 6.64   posterior SD 9.5 vs error SD 11.7, rank corr(SD, |error|) 0.07, coverage 0.85
+   g1_abpw MAE  9.05   CRPS: own draws 6.33, mean + constant bar 6.45   posterior SD 9.2 vs error SD 11.4, rank corr(SD, |error|) 0.08, coverage 0.84
+   g1_abpw_seed1 MAE  9.32   CRPS: own draws 6.53, mean + constant bar 6.64   posterior SD 9.3 vs error SD 11.7, rank corr(SD, |error|) 0.07, coverage 0.83
+   s_ppg MAE  9.31   CRPS: own draws 6.48, mean + constant bar 6.61   posterior SD 9.5 vs error SD 11.7, rank corr(SD, |error|) 0.08, coverage 0.85
+   g1_ft_ppg MAE  9.28   CRPS: own draws 6.46, mean + constant bar 6.59   posterior SD 9.5 vs error SD 11.6, rank corr(SD, |error|) 0.07, coverage 0.85
+   m1_seed0 MAE  9.30   CRPS: own draws 6.46, mean + constant bar 6.62   posterior SD 9.7 vs error SD 11.7, rank corr(SD, |error|) 0.09, coverage 0.86
+   m1_seed1 MAE  9.24   CRPS: own draws 6.44, mean + constant bar 6.58   posterior SD 9.6 vs error SD 11.7, rank corr(SD, |error|) 0.08, coverage 0.86
+   m3   MAE  7.87   CRPS: own draws 5.49, mean + constant bar 5.65   posterior SD 8.5 vs error SD 10.1, rank corr(SD, |error|) 0.10, coverage 0.87
+
+2. Within and between patients
+   true MAP: SD between patients 9.49, within a patient 10.52 mmHg
+   g1_twin pulse-following 0.41  calibration-following -0.00  within-patient corr 0.75, R2 0.53   between-patient R2 0.14 (patient-mean error SD 8.8)
+   g1   pulse-following 0.44  calibration-following -0.00  within-patient corr 0.71, R2 0.50   between-patient R2 0.10 (patient-mean error SD 9.0)
+   g1_seed1 pulse-following 0.44  calibration-following -0.01  within-patient corr 0.71, R2 0.50   between-patient R2 0.10 (patient-mean error SD 9.0)
+   g1_abpw pulse-following 0.46  calibration-following -0.00  within-patient corr 0.72, R2 0.51   between-patient R2 0.16 (patient-mean error SD 8.7)
+   g1_abpw_seed1 pulse-following 0.47  calibration-following -0.01  within-patient corr 0.72, R2 0.52   between-patient R2 0.08 (patient-mean error SD 9.1)
+   s_ppg pulse-following 0.44  calibration-following -0.01  within-patient corr 0.72, R2 0.51   between-patient R2 0.10 (patient-mean error SD 9.0)
+   g1_ft_ppg pulse-following 0.44  calibration-following -0.01  within-patient corr 0.71, R2 0.50   between-patient R2 0.12 (patient-mean error SD 8.9)
+   m1_seed0 pulse-following 0.38  calibration-following -0.00  within-patient corr 0.70, R2 0.46   between-patient R2 0.14 (patient-mean error SD 8.8)
+   m1_seed1 pulse-following 0.41  calibration-following -0.00  within-patient corr 0.71, R2 0.48   between-patient R2 0.14 (patient-mean error SD 8.8)
+   m3   pulse-following 0.40  calibration-following +0.27  within-patient corr 0.64, R2 0.41   between-patient R2 0.59 (patient-mean error SD 6.1)
+
+3. References (cross-fitted by patient)
+   constant                               MAE 11.38   CRPS with constant bar  8.16
+   calibration as is                      MAE 11.12   CRPS with constant bar  8.17
+   calibration shrunk toward the mean     MAE  9.87   CRPS with constant bar  7.10
+   g1_twin (pulse only)                   MAE  9.10   CRPS with constant bar  6.47
+   g1_twin + calibration, linear          MAE  8.24   CRPS with constant bar  5.99
+   g1 (as trained)                        MAE  9.30   CRPS with constant bar  6.61
+   g1_seed1 (as trained)                  MAE  9.36   CRPS with constant bar  6.64
+   g1_abpw (as trained)                   MAE  9.05   CRPS with constant bar  6.45
+   g1_abpw_seed1 (as trained)             MAE  9.32   CRPS with constant bar  6.64
+   s_ppg (as trained)                     MAE  9.31   CRPS with constant bar  6.61
+   g1_ft_ppg (as trained)                 MAE  9.28   CRPS with constant bar  6.59
+   m1_seed0 (as trained)                  MAE  9.30   CRPS with constant bar  6.62
+   m1_seed1 (as trained)                  MAE  9.24   CRPS with constant bar  6.58
+   m3 (as trained)                        MAE  7.87   CRPS with constant bar  5.65
+   weights of the linear combination: g1_twin 0.86, calibration 0.33
+
+4. Patient-level bootstrap, 95% intervals (1000 resamples)
+   MAE g1 - g1_twin                               +0.20  [+0.06, +0.33]
+   MAE g1_seed1 - g1_twin                         +0.25  [+0.13, +0.38]
+   MAE g1_abpw - g1_twin                          -0.05  [-0.23, +0.13]
+   MAE g1_abpw_seed1 - g1_twin                    +0.22  [+0.08, +0.37]
+   MAE s_ppg - g1_twin                            +0.21  [+0.11, +0.32]
+   MAE g1_ft_ppg - g1_twin                        +0.17  [+0.05, +0.31]
+   MAE m1_seed0 - g1_twin                         +0.20  [+0.07, +0.32]
+   MAE m1_seed1 - g1_twin                         +0.14  [+0.04, +0.24]
+   MAE m3 - g1_twin                               -1.23  [-1.66, -0.77]
+   MAE g1 - (g1_twin + calibration, linear)       +1.05  [+0.70, +1.40]
+   MAE g1_seed1 - (g1_twin + calibration, linear) +1.11  [+0.77, +1.48]
+   MAE g1_abpw - (g1_twin + calibration, linear)  +0.80  [+0.45, +1.12]
+   MAE g1_abpw_seed1 - (g1_twin + calibration, linear) +1.08  [+0.71, +1.45]
+   MAE s_ppg - (g1_twin + calibration, linear)    +1.07  [+0.71, +1.42]
+   MAE g1_ft_ppg - (g1_twin + calibration, linear) +1.03  [+0.69, +1.38]
+   MAE m1_seed0 - (g1_twin + calibration, linear) +1.06  [+0.71, +1.42]
+   MAE m1_seed1 - (g1_twin + calibration, linear) +1.00  [+0.64, +1.35]
+   MAE m3 - (g1_twin + calibration, linear)       -0.37  [-0.58, -0.18]
+   CRPS g1 own draws - (g1_twin + constant bar)   +0.02  [-0.12, +0.17]
+   CRPS g1_seed1 own draws - (g1_twin + constant bar) +0.06  [-0.08, +0.20]
+   CRPS g1_abpw own draws - (g1_twin + constant bar) -0.14  [-0.27, +0.02]
+   CRPS g1_abpw_seed1 own draws - (g1_twin + constant bar) +0.06  [-0.08, +0.23]
+   CRPS s_ppg own draws - (g1_twin + constant bar) +0.01  [-0.11, +0.15]
+   CRPS g1_ft_ppg own draws - (g1_twin + constant bar) -0.00  [-0.12, +0.13]
+   CRPS m1_seed0 own draws - (g1_twin + constant bar) -0.00  [-0.11, +0.11]
+   CRPS m1_seed1 own draws - (g1_twin + constant bar) -0.03  [-0.14, +0.09]
+   CRPS m3 own draws - (g1_twin + constant bar)   -0.97  [-1.26, -0.66]
+   coverage90 g1                                  +0.85  [+0.82, +0.87]
+   coverage90 g1_seed1                            +0.85  [+0.82, +0.87]
+   coverage90 g1_abpw                             +0.84  [+0.81, +0.87]
+   coverage90 g1_abpw_seed1                       +0.83  [+0.80, +0.86]
+   coverage90 s_ppg                               +0.85  [+0.82, +0.88]
+   coverage90 g1_ft_ppg                           +0.85  [+0.82, +0.88]
+   coverage90 m1_seed0                            +0.86  [+0.84, +0.88]
+   coverage90 m1_seed1                            +0.86  [+0.83, +0.88]
+   coverage90 m3                                  +0.87  [+0.85, +0.89]
