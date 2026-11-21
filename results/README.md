@@ -52,7 +52,7 @@ prediction scores 0.50); the main README uses pulse-following from `reanalysis_m
   segment (`results/ids/test/meta.npz`). `scripts/reanalyze.py`, `scripts/steps_compare.py` and
   `scripts/pooled_noise.py` need them; `scripts/evaluate.py` writes the draws again, and `--data` can point
   at the prepared dataset instead of `results/ids`.
-* Checkpoints.
+* Checkpoints: in [pulse2abp-checkpoints](https://github.com/mikeee666jue/pulse2abp-checkpoints), except the PaPaGei arms.
 
 In `config` and `train_args` the cluster account name inside the data path has been replaced by `USER`.
 Nothing else in these files was edited.

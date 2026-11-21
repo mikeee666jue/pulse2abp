@@ -273,6 +273,13 @@ output is in `results/comparisons/general_*.txt`.
   twice. There is no beat-timing score yet.
 * The fixed error bar is fitted on half of the test patients and scored on the other half.
 
+## Trained weights
+
+The checkpoints behind these results are in a separate repository,
+[pulse2abp-checkpoints](https://github.com/mikeee666jue/pulse2abp-checkpoints): 17 files of about 70 MB,
+covering B1, M1, M3 and the flow-matching runs (Tables 1 and 3) and the general-model runs (Tables 6 to 11).
+The PaPaGei arms are not included. Pass a file to `--ckpt` in the commands below.
+
 ## Run it
 
 Self-test without any data, about 10 minutes on a laptop:
@@ -390,7 +397,7 @@ specific to that cluster.
     slurm/             job files for a Slurm cluster
     tests/             test_core.py and test_general.py (seconds), test_information.py (minutes)
     results/           metric files of every evaluation; see results/README.md
-    runs/              settings and training history of every run (no checkpoints)
+    runs/              settings and training history of every run (checkpoints: see Trained weights)
 
 ## How to read the numbers
 
